@@ -30,7 +30,7 @@ namespace AplicatieManagementStudenti.Pages.Inscrieri
 
             Inscriere = await _context.Inscrieri
                 .Include(i => i.Curs)
-                .Include(i => i.Student).FirstOrDefaultAsync(m => m.InscriereID == id);
+                .Include(i => i.Student).AsNoTracking().FirstOrDefaultAsync(m => m.InscriereID == id);
 
             if (Inscriere == null)
             {
