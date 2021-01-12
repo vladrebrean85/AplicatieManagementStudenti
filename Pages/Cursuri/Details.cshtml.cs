@@ -8,7 +8,7 @@ using Microsoft.EntityFrameworkCore;
 using AplicatieManagementStudenti.Data;
 using AplicatieManagementStudenti.Models;
 
-namespace AplicatieManagementStudenti.Pages.Studenti
+namespace AplicatieManagementStudenti.Pages.Cursuri
 {
     public class DetailsModel : PageModel
     {
@@ -19,7 +19,7 @@ namespace AplicatieManagementStudenti.Pages.Studenti
             _context = context;
         }
 
-        public Student Student { get; set; }
+        public Curs Curs { get; set; }
 
         public async Task<IActionResult> OnGetAsync(int? id)
         {
@@ -28,13 +28,9 @@ namespace AplicatieManagementStudenti.Pages.Studenti
                 return NotFound();
             }
 
-            Student = await _context.Studenti
-                .Include(s => s.Inscrieri)
-                .ThenInclude(e => e.Curs)
-                .AsNoTracking()
-                .FirstOrDefaultAsync(m => m.ID == id);
+            Curs = await _context.Cursuri.FirstOrDefaultAsync(m => m.CursID == id);
 
-            if (Student == null)
+            if (Curs == null)
             {
                 return NotFound();
             }

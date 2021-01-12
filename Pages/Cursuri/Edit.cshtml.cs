@@ -9,7 +9,7 @@ using Microsoft.EntityFrameworkCore;
 using AplicatieManagementStudenti.Data;
 using AplicatieManagementStudenti.Models;
 
-namespace AplicatieManagementStudenti.Pages.Studenti
+namespace AplicatieManagementStudenti.Pages.Cursuri
 {
     public class EditModel : PageModel
     {
@@ -21,7 +21,7 @@ namespace AplicatieManagementStudenti.Pages.Studenti
         }
 
         [BindProperty]
-        public Student Student { get; set; }
+        public Curs Curs { get; set; }
 
         public async Task<IActionResult> OnGetAsync(int? id)
         {
@@ -30,9 +30,9 @@ namespace AplicatieManagementStudenti.Pages.Studenti
                 return NotFound();
             }
 
-            Student = await _context.Studenti.FindAsync(id);
+            Curs = await _context.Cursuri.FirstOrDefaultAsync(m => m.CursID == id);
 
-            if (Student == null)
+            if (Curs == null)
             {
                 return NotFound();
             }
@@ -41,30 +41,37 @@ namespace AplicatieManagementStudenti.Pages.Studenti
 
         // To protect from overposting attacks, enable the specific properties you want to bind to.
         // For more details, see https://aka.ms/RazorPagesCRUD.
-        public async Task<IActionResult> OnPostAsync(int id)
+        public async Task<IActionResult> OnPostAsync()
         {
-            var studentToUpdate = await _context.Studenti.FindAsync(id);
-
-            if (studentToUpdate == null)
+            if (!ModelState.IsValid)
             {
-                return NotFound();
+                return Page();
             }
 
-            if (await TryUpdateModelAsync<Student>(
-                studentToUpdate,
-                "student",
-                s => s.Nume, s => s.Prenume, s => s.DataInscrierii))
+            _context.Attach(Curs).State = EntityState.Modified;
+
+            try
             {
                 await _context.SaveChangesAsync();
-                return RedirectToPage("./Index");
+            }
+            catch (DbUpdateConcurrencyException)
+            {
+                if (!CursExists(Curs.CursID))
+                {
+                    return NotFound();
+                }
+                else
+                {
+                    throw;
+                }
             }
 
-            return Page();
+            return RedirectToPage("./Index");
         }
 
-        private bool StudentExists(int id)
+        private bool CursExists(int id)
         {
-            return _context.Studenti.Any(e => e.ID == id);
+            return _context.Cursuri.Any(e => e.CursID == id);
         }
     }
 }

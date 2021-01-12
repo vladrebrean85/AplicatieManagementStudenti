@@ -8,7 +8,7 @@ using Microsoft.AspNetCore.Mvc.Rendering;
 using AplicatieManagementStudenti.Data;
 using AplicatieManagementStudenti.Models;
 
-namespace AplicatieManagementStudenti.Pages.Studenti
+namespace AplicatieManagementStudenti.Pages.Cursuri
 {
     public class CreateModel : PageModel
     {
@@ -25,24 +25,20 @@ namespace AplicatieManagementStudenti.Pages.Studenti
         }
 
         [BindProperty]
-        public Student Student { get; set; }
+        public Curs Curs { get; set; }
 
         // To protect from overposting attacks, see https://aka.ms/RazorPagesCRUD
         public async Task<IActionResult> OnPostAsync()
         {
-            var emptyStudent = new Student();
-
-            if (await TryUpdateModelAsync<Student>(
-                emptyStudent,
-                "student",   // Prefix for form value.
-                s => s.Nume, s => s.Prenume, s => s.DataInscrierii))
+            if (!ModelState.IsValid)
             {
-                _context.Studenti.Add(emptyStudent);
-                await _context.SaveChangesAsync();
-                return RedirectToPage("./Index");
+                return Page();
             }
 
-            return Page();
+            _context.Cursuri.Add(Curs);
+            await _context.SaveChangesAsync();
+
+            return RedirectToPage("./Index");
         }
     }
 }
