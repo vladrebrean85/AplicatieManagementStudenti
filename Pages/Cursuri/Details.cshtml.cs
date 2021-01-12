@@ -28,7 +28,10 @@ namespace AplicatieManagementStudenti.Pages.Cursuri
                 return NotFound();
             }
 
-            Curs = await _context.Cursuri.FirstOrDefaultAsync(m => m.CursID == id);
+            Curs = await _context.Cursuri
+                .Include(s => s.Inscrieri)
+                .AsNoTracking()
+                .FirstOrDefaultAsync(m => m.CursID == id);
 
             if (Curs == null)
             {

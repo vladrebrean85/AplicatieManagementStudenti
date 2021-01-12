@@ -23,6 +23,24 @@
         <dd class="col-sm-10">
             @Html.DisplayFor(model => model.Curs.Credite)
         </dd>
+        <dt class="col-sm-2">
+            @Html.DisplayNameFor(model => model.Curs.Inscrieri)
+        </dt>
+        <dd class="col-sm-10">
+            <table class="table">
+                <tr>
+                    <th>Inscrieri</th>
+                </tr>
+                @foreach (var item in Model.Curs.Inscrieri)
+                {
+                    <tr>
+                        <td>
+                            @Html.DisplayFor(modelItem => item.InscriereID)
+                        </td>
+                    </tr>
+                }
+            </table>
+        </dd>
     </dl>
 </div>
 <div>
