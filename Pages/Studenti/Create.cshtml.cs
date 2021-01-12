@@ -35,7 +35,7 @@ namespace AplicatieManagementStudenti.Pages.Studenti
                 return Page();
             }
 
-            _context.Student.Add(Student);
+            _context.Studenti.Add(Student);
             await _context.SaveChangesAsync();
 
             return RedirectToPage("./Index");

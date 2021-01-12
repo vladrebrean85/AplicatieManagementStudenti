@@ -28,7 +28,7 @@ namespace AplicatieManagementStudenti.Pages.Studenti
                 return NotFound();
             }
 
-            Student = await _context.Student.FirstOrDefaultAsync(m => m.ID == id);
+            Student = await _context.Studenti.FirstOrDefaultAsync(m => m.ID == id);
 
             if (Student == null)
             {
