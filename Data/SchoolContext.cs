@@ -14,7 +14,7 @@ namespace AplicatieManagementStudenti.Data
         {
         }
 
-        public DbSet<Student> Students { get; set; }
+        public DbSet<Student> Studenti { get; set; }
         public DbSet<Inscriere> Inscrieri { get; set; }
         public DbSet<Curs> Cursuri { get; set; }
         protected override void OnModelCreating(ModelBuilder modelBuilder)

@@ -30,7 +30,7 @@ namespace AplicatieManagementStudenti.Pages.Studenti
                 return NotFound();
             }
 
-            Student = await _context.Student.FirstOrDefaultAsync(m => m.ID == id);
+            Student = await _context.Studenti.FirstOrDefaultAsync(m => m.ID == id);
 
             if (Student == null)
             {
@@ -71,7 +71,7 @@ namespace AplicatieManagementStudenti.Pages.Studenti
 
         private bool StudentExists(int id)
         {
-            return _context.Student.Any(e => e.ID == id);
+            return _context.Studenti.Any(e => e.ID == id);
         }
     }
 }

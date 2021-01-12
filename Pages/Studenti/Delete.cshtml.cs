@@ -29,7 +29,7 @@ namespace AplicatieManagementStudenti.Pages.Studenti
                 return NotFound();
             }
 
-            Student = await _context.Student.FirstOrDefaultAsync(m => m.ID == id);
+            Student = await _context.Studenti.FirstOrDefaultAsync(m => m.ID == id);
 
             if (Student == null)
             {
@@ -45,11 +45,11 @@ namespace AplicatieManagementStudenti.Pages.Studenti
                 return NotFound();
             }
 
-            Student = await _context.Student.FindAsync(id);
+            Student = await _context.Studenti.FindAsync(id);
 
             if (Student != null)
             {
-                _context.Student.Remove(Student);
+                _context.Studenti.Remove(Student);
                 await _context.SaveChangesAsync();
             }
 

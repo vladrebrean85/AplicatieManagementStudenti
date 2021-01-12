@@ -23,7 +23,7 @@ namespace AplicatieManagementStudenti.Pages.Studenti
 
         public async Task OnGetAsync()
         {
-            Student = await _context.Student.ToListAsync();
+            Student = await _context.Studenti.ToListAsync();
         }
     }
 }
